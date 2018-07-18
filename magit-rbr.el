@@ -1,3 +1,17 @@
+;;; magit-rbr.el --- Support for the Foo programming language
+
+;; Copyright (C) 2010-2018 Anatoly Fayngelerin
+
+;; Author: Anatoly Fayngelerin <fanatoly+magitrbr@gmail.com>
+;; Maintainer: Anatoly Fayngelerin <fanatoly+magitrbr@gmail.com>
+;; Created: 18 Jul 2018
+;; Keywords: git magit rbr
+;; Homepage: https://github.com/fanatoly/magit-rbr
+;; Package-Requires: ((magit "2.12.0"))
+;; This file is not part of GNU Emacs.
+
+;; This file is free software...
+
 (require 'magit)
 (require 'magit-sequence)
 
