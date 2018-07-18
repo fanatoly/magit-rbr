@@ -5,21 +5,29 @@
 ;; Author: Anatoly Fayngelerin <fanatoly+magitrbr@gmail.com>
 ;; Maintainer: Anatoly Fayngelerin <fanatoly+magitrbr@gmail.com>
 ;; Created: 18 Jul 2018
-;; Keywords: git magit rbr
+;; Version: 20180718.00
+;; Keywords: git magit rbr tools
 ;; Homepage: https://github.com/fanatoly/magit-rbr
-;; Package-Requires: ((magit "2.12.0"))
+;; Package-Requires: ((magit "2.12.0") (emacs "24.3"))
 ;; This file is not part of GNU Emacs.
 
 ;; This file is free software...
 
+;;; Commentary:
+;;;
+;;; This package tweaks magit to recognize `git rbr` rebases and use
+;;; corresponding commands during the magit rebase sequence.  This
+;;; means that when you abort a rebase during a recursive rebase,
+;;; magit will abort the rbr rather than a particular phase of
+;;; rbr.  This also adds recursive rebase as an option
+;;;
+;;; Code:
 (require 'magit)
 (require 'magit-sequence)
 
-;;; Common
 (defun magit-rebase-command ()
   (if (file-exists-p (magit-git-dir "rebase-recursive")) "rbr" "rebase"))
 
-;;;###autoload
 (defun magit-rebase-continue (&optional noedit)
   "Restart the current rebasing operation.
 In some cases this pops up a commit message buffer for you do
@@ -43,7 +51,6 @@ edit.  With a prefix argument the old message is reused as-is."
           (magit-run-git-sequencer (magit-rebase-command) "--continue")))
     (user-error "No rebase in progress")))
 
-;;;###autoload
 (defun magit-rebase-skip ()
   "Skip the current commit and restart the current rebase operation."
   (interactive)
@@ -52,7 +59,6 @@ edit.  With a prefix argument the old message is reused as-is."
   (magit-run-git-sequencer (magit-rebase-command) "--skip"))
 
 
-;;;###autoload
 (defun magit-rebase-abort ()
   "Abort the current rebase operation, restoring the original branch."
   (interactive)
@@ -63,19 +69,19 @@ edit.  With a prefix argument the old message is reused as-is."
 
 
 ;;;###autoload
-(defun magit-rebase-recursive (args)
-  "Rebase the current branch onto a branch read in the minibuffer.
-All commits that are reachable from `HEAD' but not from the
-selected branch TARGET are being rebased."
+(defun magit-rbr-rebase-recursive (args)
+  "Rebase the current branch recursively onto its upstream."
   (interactive (list (magit-rebase-arguments)))
   (message "Recursively Rebasing...")
   (magit-git-rebase-recursive args)
   (message "Recursively Rebasing...done"))
 
 ;;;###autoload
-(defun magit-git-rebase-recursive (args)
+(defun magit-rbr-git-rebase-recursive (args)
   (magit-run-git-sequencer "rbr" args))
 
-(magit-define-popup-action 'magit-rebase-popup ?r "recursively" 'magit-rebase-recursive ?i t)
+(magit-define-popup-action 'magit-rebase-popup ?r "recursively" 'magit-rbr-rebase-recursive ?i t)
 
 (provide 'magit-rbr)
+
+;;; magit-rbr.el ends here
