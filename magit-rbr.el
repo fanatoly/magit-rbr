@@ -1,4 +1,4 @@
-;;; magit-rbr.el --- Support for the Foo programming language
+;;; magit-rbr.el --- Support for git rbr in Magit
 
 ;; Copyright (C) 2010-2018 Anatoly Fayngelerin
 
