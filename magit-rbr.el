@@ -8,7 +8,7 @@
 ;; Version: 20180718.00
 ;; Keywords: git magit rbr tools
 ;; Homepage: https://github.com/fanatoly/magit-rbr
-;; Package-Requires: ((magit "2.12.0") (emacs "24.3"))
+;; Package-Requires: ((magit "2.13.0") (emacs "24.3"))
 ;; This file is not part of GNU Emacs.
 
 ;; This file is free software...
