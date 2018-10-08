@@ -74,9 +74,9 @@ edit.  With a prefix argument the old message is reused as-is."
 (defun magit-rbr-rebase-recursive (args)
   "Rebase the current branch recursively onto its upstream."
   (interactive (list (magit-rebase-arguments)))
-  (message "Recursively Rebasing...")
+  (message "Rebasing recursively ...")
   (magit-git-rebase-recursive args)
-  (message "Recursively Rebasing...done"))
+  (message "Rebasing recursively...done"))
 
 ;;;###autoload
 (defun magit-rbr-git-rebase-recursive (args)
