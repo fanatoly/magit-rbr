@@ -82,7 +82,8 @@ edit.  With a prefix argument the old message is reused as-is."
 (defun magit-rbr-git-rebase-recursive (args)
   (magit-run-git-sequencer "rbr" args))
 
-(magit-define-popup-action 'magit-rebase-popup ?r "recursively" 'magit-rbr-rebase-recursive ?i t)
+(magit-define-popup-action 'magit-rebase-popup
+  ?r "recursively" 'magit-rbr-rebase-recursive ?i t)
 
 (provide 'magit-rbr)
 
