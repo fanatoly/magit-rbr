@@ -32,12 +32,8 @@
   "Rebase the current branch recursively onto its upstream."
   (interactive (list (magit-rebase-arguments)))
   (message "Rebasing recursively ...")
-  (magit-git-rebase-recursive args)
+  (magit-run-git-sequencer "rbr" args)
   (message "Rebasing recursively...done"))
-
-;;;###autoload
-(defun magit-rbr-git-rebase-recursive (args)
-  (magit-run-git-sequencer "rbr" args))
 
 (magit-define-popup-action 'magit-rebase-popup
   ?r "recursively" 'magit-rbr-rebase-recursive ?i t)
