@@ -27,49 +27,6 @@
 (require 'magit)
 (require 'magit-sequence)
 
-(defun magit-rebase-command ()
-  (if (file-exists-p (magit-git-dir "rebase-recursive")) "rbr" "rebase"))
-
-(defun magit-rebase-continue (&optional noedit)
-  "Restart the current rebasing operation.
-In some cases this pops up a commit message buffer for you do
-edit.  With a prefix argument the old message is reused as-is."
-  (interactive "P")
-  (if (magit-rebase-in-progress-p)
-      (if (magit-anything-unstaged-p t)
-          (user-error "Cannot continue rebase with unstaged changes")
-        (when (and (magit-anything-staged-p)
-                   (file-exists-p (magit-git-dir "rebase-merge"))
-                   (not (member (magit-toplevel)
-                                magit--rebase-public-edit-confirmed)))
-          (magit-commit-amend-assert))
-        (if noedit
-            (let ((process-environment process-environment))
-              (push "GIT_EDITOR=true" process-environment)
-              (magit-run-git-async (magit-rebase-command) "--continue")
-              (set-process-sentinel magit-this-process
-                                    #'magit-sequencer-process-sentinel)
-              magit-this-process)
-          (magit-run-git-sequencer (magit-rebase-command) "--continue")))
-    (user-error "No rebase in progress")))
-
-(defun magit-rebase-skip ()
-  "Skip the current commit and restart the current rebase operation."
-  (interactive)
-  (unless (magit-rebase-in-progress-p)
-    (user-error "No rebase in progress"))
-  (magit-run-git-sequencer (magit-rebase-command) "--skip"))
-
-
-(defun magit-rebase-abort ()
-  "Abort the current rebase operation, restoring the original branch."
-  (interactive)
-  (unless (magit-rebase-in-progress-p)
-    (user-error "No rebase in progress"))
-  (magit-confirm 'abort-rebase "Abort this rebase")
-  (magit-run-git (magit-rebase-command) "--abort"))
-
-
 ;;;###autoload
 (defun magit-rbr-rebase-recursive (args)
   "Rebase the current branch recursively onto its upstream."
