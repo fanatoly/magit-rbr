@@ -4,7 +4,6 @@
 
 ;; Author: Anatoly Fayngelerin <fanatoly+magitrbr@gmail.com>
 ;; Maintainer: Anatoly Fayngelerin <fanatoly+magitrbr@gmail.com>
-;; Version: 20180718.00
 ;; Keywords: git magit rbr tools
 ;; Homepage: https://github.com/fanatoly/magit-rbr
 ;; Package-Requires: ((magit "2.13.0") (emacs "24.3"))
